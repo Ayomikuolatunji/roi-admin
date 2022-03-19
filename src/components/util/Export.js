@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Image, Table } from 'semantic-ui-react'
+import { Header, Rating, Table } from 'semantic-ui-react'
 import { AllProd } from '../../hooks/api/reqquest';
 
 export default function Export() {
@@ -16,63 +16,38 @@ export default function Export() {
        getProd()
     }, [])
   return (
-    <div>
-          <Table basic='very' celled collapsing>
+    <div className='p-3'>
+            <Table celled padded>
     <Table.Header>
       <Table.Row>
-        <Table.HeaderCell>Employee</Table.HeaderCell>
-        <Table.HeaderCell>Correct Guesses</Table.HeaderCell>
+        <Table.HeaderCell singleLine>Evidence Rating</Table.HeaderCell>
+        <Table.HeaderCell>Effect</Table.HeaderCell>
+        <Table.HeaderCell>Efficacy</Table.HeaderCell>
+        <Table.HeaderCell>Consensus</Table.HeaderCell>
+        <Table.HeaderCell>Comments</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 
     <Table.Body>
       <Table.Row>
         <Table.Cell>
-          <Header as='h4' image>
-            <Image src='https://react.semantic-ui.com/images/avatar/small/lena.png' rounded size='mini' />
-            <Header.Content>
-              Lena
-              <Header.Subheader>Human Resources</Header.Subheader>
-            </Header.Content>
+          <Header as='h2' textAlign='center'>
+            A
           </Header>
         </Table.Cell>
-        <Table.Cell>22</Table.Cell>
-      </Table.Row>
-      <Table.Row>
+        <Table.Cell singleLine>Power Output</Table.Cell>
         <Table.Cell>
-          <Header as='h4' image>
-            <Image src='https://react.semantic-ui.com/images/avatar/small/matthew.png' rounded size='mini' />
-            <Header.Content>
-              Matthew
-              <Header.Subheader>Fabric Design</Header.Subheader>
-            </Header.Content>
-          </Header>
+          <Rating icon='star' defaultRating={3} maxRating={3} />
         </Table.Cell>
-        <Table.Cell>15</Table.Cell>
-      </Table.Row>
-      <Table.Row>
+        <Table.Cell textAlign='right'>
+          80% <br />
+          <a href='#'>18 studies</a>
+        </Table.Cell>
         <Table.Cell>
-          <Header as='h4' image>
-            <Image src='https://react.semantic-ui.com/images/avatar/small/lindsay.png' rounded size='mini' />
-            <Header.Content>
-              Lindsay
-              <Header.Subheader>Entertainment</Header.Subheader>
-            </Header.Content>
-          </Header>
+          Creatine supplementation is the reference compound for increasing
+          muscular creatine levels; there is variability in this increase,
+          however, with some nonresponders.
         </Table.Cell>
-        <Table.Cell>12</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>
-          <Header as='h4' image>
-            <Image src='https://react.semantic-ui.com/images/avatar/small/mark.png' rounded size='mini' />
-            <Header.Content>
-              Mark
-              <Header.Subheader>Executive</Header.Subheader>
-            </Header.Content>
-          </Header>
-        </Table.Cell>
-        <Table.Cell>11</Table.Cell>
       </Table.Row>
     </Table.Body>
   </Table>
