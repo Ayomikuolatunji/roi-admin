@@ -41,7 +41,7 @@ export default function Export() {
         </Table.Cell>
         <Table.Cell textAlign='right'>
           80% <br />
-          <a href='#'>18 studies</a>
+          <p >18 studies</p>
         </Table.Cell>
         <Table.Cell>
           Creatine supplementation is the reference compound for increasing
