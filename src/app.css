@@ -8,12 +8,12 @@
     position: sticky;
     top: 0;
     left: 0;
+    z-index: 999;
     right: 0;
     height: 60px;
 }
 .sidebar{
     height: calc(100vh - 60px);
-    color: whitesmoke;
     background-color: gray;
     width: 10%;
     bottom: 0;
@@ -25,6 +25,30 @@
 }
 .main{
     width: 90%;
-    background-color: red;
     height: 100vh;
+}
+
+@media (max-width:640px){
+    .app{
+        width: 100%;
+        display: block;
+        position: relative;
+    } 
+    .header{
+        z-index: 999;
+    }
+    .sidebar{
+        width: 100%;
+        position: fixed;
+        top: 60px !important;
+        height: calc(120px - 60px);
+        z-index: 99;
+        display: block;
+    }
+    .main{
+        width: 100%;
+        position: relative;
+        display: block;
+        margin-top: 70px;
+    }
 }
