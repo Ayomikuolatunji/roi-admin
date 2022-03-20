@@ -46,17 +46,16 @@ export default function Export() {
             </Table.Cell>
             <Table.Cell singleLine>{product_name}</Table.Cell>
             <Table.Cell>
-              <img src={imgUrl} alt={product_name} />
+              <img src={imgUrl} alt={product_name} className="w-24 h-24"/>
             </Table.Cell>
-            <Table.Cell textAlign='right'>
-              80% <br />
-              <p >18 studies</p>
+            <Table.Cell>
+              {product_type}
             </Table.Cell>
             <Table.Cell>
               {desc}
             </Table.Cell>
           </Table.Row>
-        }) && err}
+        })}
     </Table.Body>
   </Table>
     </div>
