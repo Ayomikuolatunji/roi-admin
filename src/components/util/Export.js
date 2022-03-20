@@ -18,10 +18,10 @@ export default function Export() {
 
 
     const onImageChange =async(event) => {
+        setloading(true)
         try{
             if (event.target.files && event.target.files[0]) {
                 const fileUpload=event.target.files[0];
-                setProdImg(fileUpload)
                  const response = await axios({
                    method: 'GET',
                    headers:{
@@ -34,8 +34,10 @@ export default function Export() {
                            method: 'PUT',
                            body:fileUpload
                    })
-                   console.log(response)
-                   console.log(result)
+                    if(result.status===200) {
+                        setloading(false)
+                        setProdImg(result.url.split("?")[0])
+                    }
                    }
             }catch(error){
               console.log(error)
@@ -80,14 +82,17 @@ export default function Export() {
         />
         </Form.Group>
         <Form.Group widths='equal'>
+        <div>
         <Form.Input
-           type='file'
-            fluid
-            id='form-subcomponent-shorthand-input-first-name'
-            label='Product Image'
-            onChange={onImageChange}
-            placeholder='First name'
-        />
+            type='file'
+                fluid
+                id='form-subcomponent-shorthand-input-first-name'
+                label='Product Image'
+                onChange={onImageChange}
+                placeholder='First name'
+            />
+            {productImg ? "Uplaoded successfully" :""}
+        </div>
         <Form.TextArea
             fluid
             id='form-subcomponent-shorthand-input-last-name'
