@@ -1,8 +1,9 @@
 import React from 'react';
-import { Header, Rating, Table } from 'semantic-ui-react'
+import { Header,Table } from 'semantic-ui-react'
 import { AllProd,postProds} from '../../hooks/api/reqquest';
 import { Button, Form, Message } from 'semantic-ui-react';
 import axios from "axios";
+import { set } from '@reduxjs/toolkit/node_modules/immer/dist/internal';
 
 
 
@@ -14,6 +15,7 @@ export default function Export() {
     const [productDesc,setProdDesc]=React.useState('')
     const [productImg,setProdImg]=React.useState('')
     const [loading,setloading]=React.useState(false)
+    const [prodLoading,setProloading]=React.useState(true)
     console.log(productImg)
 
 
@@ -34,6 +36,7 @@ export default function Export() {
                            method: 'PUT',
                            body:fileUpload
                    })
+                   console.log(response)
                     if(result.status===200) {
                         setloading(false)
                         setProdImg(result.url.split("?")[0])
@@ -45,13 +48,16 @@ export default function Export() {
 
      }
      const getProd=async()=>{
+       prodLoading(true)
       try {
        const res=await AllProd()
        // console.log(res.data.products)
        setprods(res.data.products)
+       prodLoading(false)
       } catch (error) {
           console.log("erro")
           setErr(error.message)
+          prodLoading(false)
       }
   }
     React.useEffect(()=>{
@@ -64,7 +70,7 @@ export default function Export() {
        }
       //  postProds(productName,productType, productDesc,productImg)
        getProd()
-       console.log(productName,productType, productDesc,productImg)
+       console.log(productName,productType, productDesc,"productImg")
    }
   return (
     <div className='p-3'>
@@ -86,6 +92,7 @@ export default function Export() {
             label='Product Name'
             placeholder='Product name'
             value={productName}
+            onChange={(e)=>setProdName(e.target.value)}
         />
         </Form.Group>
         <Form.Group widths='equal'>
@@ -99,11 +106,11 @@ export default function Export() {
             />
             {productImg ? "Uplaoded successfully" :""}
         <Form.TextArea
-            fluid
             id='form-subcomponent-shorthand-input-last-name'
             label='Product Description'
             placeholder='Product description'
             value={productDesc}
+            onChange={(e)=>setProdDesc(e.target.value)}
         />
         </Form.Group>
         {/* <Message
@@ -114,7 +121,7 @@ export default function Export() {
         <Button type="submit">Submit</Button>
     </Form>
         {/* lists prodducts */}
-    <Table celled padded>
+   {prodLoading ? "laoding" : <Table celled padded>
     <Table.Header>
       <Table.Row>
         <Table.HeaderCell>Index</Table.HeaderCell>
@@ -147,7 +154,7 @@ export default function Export() {
           </Table.Row>
         })}
     </Table.Body>
-  </Table>
+  </Table>}
     </div>
   )
 }

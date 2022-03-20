@@ -15,7 +15,7 @@ export const AllProd=async()=>{
 
 export const postProds=async(product_name,product_type,desc,imgUrl)=>{
     try{
-      const post=  axios.post(postProd, {
+      const post=await axios.post(postProd, {
         product_name:product_name,
         product_type:product_type,
         desc:desc,
