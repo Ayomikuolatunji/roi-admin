@@ -62,7 +62,9 @@ export default function Export() {
        if(productName || productDesc || productImg){
          return console.log("please input all value")
        }
-       postProds(productName,productType, productDesc,productImg)
+      //  postProds(productName,productType, productDesc,productImg)
+       getProd()
+       console.log(productName,productType, productDesc,productImg)
    }
   return (
     <div className='p-3'>
