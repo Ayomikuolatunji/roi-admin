@@ -21,13 +21,9 @@ export const postProds=async(product_name,product_type,desc,imgUrl)=>{
         desc:desc,
         imgUrl:imgUrl
       })
-      .then(function (response) {
-        console.log(response);
-      })
       .catch(function (error) {
         console.log(error);
       });
-      console.log(post)
       return post
     }catch(err){
 

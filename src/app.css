@@ -15,7 +15,7 @@
 .sidebar{
     height: 100vh;
     background-color: gray;
-    width: 10%;
+    width: 15%;
     bottom: 0;
     position: sticky;
     z-index: 999;
@@ -23,7 +23,7 @@
     top:60px;
 }
 .main{
-    width: 90%;
+    width: 75%;
   
 }
 

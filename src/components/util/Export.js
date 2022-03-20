@@ -1,14 +1,13 @@
 import React from 'react';
 import { Header,Table } from 'semantic-ui-react'
 import { AllProd,postProds} from '../../hooks/api/reqquest';
-import { Button, Form, Message } from 'semantic-ui-react';
+import { Button, Form,Dimmer,Loader} from 'semantic-ui-react';
 import axios from "axios";
-import { set } from '@reduxjs/toolkit/node_modules/immer/dist/internal';
 
 
 
 export default function Export() {
-    const [err,setErr]=React.useState("");
+    const [err,setErr]=React.useState(false);
     const [prods,setprods]=React.useState([]);
     const [productType]=React.useState("Export")
     const [productName,setProdName]=React.useState('')
@@ -16,8 +15,7 @@ export default function Export() {
     const [productImg,setProdImg]=React.useState('')
     const [loading,setloading]=React.useState(false)
     const [prodLoading,setProloading]=React.useState(true)
-    console.log(productImg)
-
+    const [subLoading,setSubLoading]=React.useState(false)
 
     const onImageChange =async(event) => {
         setloading(true)
@@ -45,37 +43,61 @@ export default function Export() {
             }catch(error){
               console.log(error)
             }
-
      }
-     const getProd=async()=>{
-       prodLoading(true)
-      try {
-       const res=await AllProd()
-       // console.log(res.data.products)
-       setprods(res.data.products)
-       prodLoading(false)
-      } catch (error) {
-          console.log("erro")
-          setErr(error.message)
-          prodLoading(false)
-      }
-  }
+    let abort=React.useRef(true)
     React.useEffect(()=>{
-       getProd()
-    }, [])
-   const onSubmit=(e)=>{
+      if(abort.current){
+        const getProd=async()=>{
+          setProloading(true)
+          try {
+            const res=await AllProd()
+            // console.log(res.data.products)
+            setprods(res.data.products)
+            prodLoading(false);
+          } catch (error) {
+              setErr(error.message)
+              setProloading(false)
+          }
+        }
+        getProd()
+      }
+      return()=>{
+        abort.current=false
+      }
+    },[prodLoading])
+   const onSubmit=async(e)=>{
+       setSubLoading(true)
        e.preventDefault()
-       if(productName || productDesc || productImg){
+       if(!productName || !productDesc ){
          return console.log("please input all value")
        }
-      //  postProds(productName,productType, productDesc,productImg)
-       getProd()
-       console.log(productName,productType, productDesc,"productImg")
+      const res=await postProds(productName,productType, productDesc,productImg)
+       console.log(res)
+       if(res.status===201){
+        const getProd=async()=>{
+          setProloading(true)
+          try {
+            const res=await AllProd()
+            // console.log(res.data.products)
+            setprods(res.data.products)
+            prodLoading(false);
+          } catch (error) {
+              setErr(error.message)
+              setProloading(false)
+          }
+        }
+        getProd()
+        setProdDesc("")
+        setProdName("")
+        setloading(false)
+        setProdImg("")
+        setSubLoading(false)
+       }
    }
   return (
-    <div className='p-3'>
+    <div className='p-3 mx-auto w-10/12'>
         {/* post products */}
-    <Form error onSubmit={onSubmit}>
+    <Form error onSubmit={onSubmit} className="shadow-md sm:p-3">
         <Form.Group widths='equal'>
         <Form.Input
             fluid
@@ -95,33 +117,42 @@ export default function Export() {
             onChange={(e)=>setProdName(e.target.value)}
         />
         </Form.Group>
-        <Form.Group widths='equal'>
-        <Form.Input
-            type='file'
-                fluid
-                id='form-subcomponent-shorthand-input-first-name'
-                label='Product Image'
-                onChange={onImageChange}
-                placeholder='First name'
+        <Form.Group className='w-100'>
+          <div className='w-1/2'>
+            {<Form.Input
+              type='file'
+                  fluid
+                  id='form-subcomponent-shorthand-input-first-name'
+                  label='Product Image'
+                  onChange={onImageChange}
+                  placeholder='First name'
+                 className='w-11/12' 
+             />}
+              {productImg  ? <h1 className='text-green-400 font-extrabold text-xl'>Uploaded SuccessFully</h1> :""}
+                  {loading ? <Dimmer active inverted>
+                    <Loader size='mini'>Uploading img please wait...</Loader>
+                  </Dimmer>
+            :""}
+          </div>
+          <div className='w-1/2'>
+            <Form.TextArea
+              id='form-subcomponent-shorthand-input-last-name'
+              label='Product Description'
+              placeholder='Product description'
+              value={productDesc}
+              onChange={(e)=>setProdDesc(e.target.value)}
+              className="w-11/12"
             />
-            {productImg ? "Uplaoded successfully" :""}
-        <Form.TextArea
-            id='form-subcomponent-shorthand-input-last-name'
-            label='Product Description'
-            placeholder='Product description'
-            value={productDesc}
-            onChange={(e)=>setProdDesc(e.target.value)}
-        />
+          </div>
         </Form.Group>
-        {/* <Message
+       {/* {err ? <Message
         error
-        header='Action Forbidden'
         content='You can only sign up for an account once with a given e-mail address.'
-        /> */}
-        <Button type="submit">Submit</Button>
+        /> : ""} */}
+        <Button type="submit">{subLoading?"Request sent...": "Submit"}</Button>
     </Form>
         {/* lists prodducts */}
-   {prodLoading ? "laoding" : <Table celled padded>
+   {prodLoading ? "loading" : <Table celled padded>
     <Table.Header>
       <Table.Row>
         <Table.HeaderCell>Index</Table.HeaderCell>
@@ -133,26 +164,29 @@ export default function Export() {
     </Table.Header>
 
     <Table.Body>
-        {prods?.map((prod,index)=>{
+        {(err && "") || (prods?.map((prod,index)=>{
             const {imgUrl,product_type,product_name, desc}=prod
-            return <Table.Row key={index}>
-            <Table.Cell>
-              <Header as='h2' textAlign='center'>
-                {index+1}
-              </Header>
-            </Table.Cell>
-            <Table.Cell singleLine>{product_name}</Table.Cell>
-            <Table.Cell>
-              <img src={imgUrl} alt={product_name} className="w-24 h-24"/>
-            </Table.Cell>
-            <Table.Cell>
-              {product_type}
-            </Table.Cell>
-            <Table.Cell>
-              {desc}
-            </Table.Cell>
-          </Table.Row>
-        })}
+            if(product_type==="Export"){
+              return <Table.Row key={index}>
+              <Table.Cell>
+                <Header as='h2' textAlign='center'>
+                  {index+1}
+                </Header>
+              </Table.Cell>
+              <Table.Cell singleLine>{product_name}</Table.Cell>
+              <Table.Cell>
+                <img src={imgUrl} alt={product_name} className="w-24 h-24"/>
+              </Table.Cell>
+              <Table.Cell>
+                {product_type}
+              </Table.Cell>
+              <Table.Cell>
+                {desc}
+              </Table.Cell>
+            </Table.Row>
+            }
+            return null
+        }))}
     </Table.Body>
   </Table>}
     </div>
