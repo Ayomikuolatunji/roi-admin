@@ -82,7 +82,6 @@ export default function Export() {
         />
         </Form.Group>
         <Form.Group widths='equal'>
-        <div>
         <Form.Input
             type='file'
                 fluid
@@ -92,7 +91,6 @@ export default function Export() {
                 placeholder='First name'
             />
             {productImg ? "Uplaoded successfully" :""}
-        </div>
         <Form.TextArea
             fluid
             id='form-subcomponent-shorthand-input-last-name'
