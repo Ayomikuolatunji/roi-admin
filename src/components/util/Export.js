@@ -21,7 +21,10 @@ export default function Export() {
     }, [])
   return (
     <div className='p-3'>
-            <Table celled padded>
+
+        {/* post products */}
+        {/* prodducts */}
+    <Table celled padded>
     <Table.Header>
       <Table.Row>
         <Table.HeaderCell>Index</Table.HeaderCell>
@@ -34,24 +37,23 @@ export default function Export() {
 
     <Table.Body>
         {prods?.map((prod,index)=>{
-            return   <Table.Row key={index}>
+            const {imgUrl,product_type,product_name, desc}=prod
+            return <Table.Row key={index}>
             <Table.Cell>
               <Header as='h2' textAlign='center'>
-                A
+                {index+1}
               </Header>
             </Table.Cell>
-            <Table.Cell singleLine>Power Output</Table.Cell>
+            <Table.Cell singleLine>{product_name}</Table.Cell>
             <Table.Cell>
-              <Rating icon='star' defaultRating={3} maxRating={3} />
+              <img src={imgUrl} alt={product_name} />
             </Table.Cell>
             <Table.Cell textAlign='right'>
               80% <br />
               <p >18 studies</p>
             </Table.Cell>
             <Table.Cell>
-              Creatine supplementation is the reference compound for increasing
-              muscular creatine levels; there is variability in this increase,
-              however, with some nonresponders.
+              {desc}
             </Table.Cell>
           </Table.Row>
         }) && err}
