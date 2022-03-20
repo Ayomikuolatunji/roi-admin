@@ -16,7 +16,7 @@ export const AllProd=async()=>{
 export const postProds=async(product_type)=>{
     try{
       const post=  axios.post('https://roi-investment.herokuapp.com/api/v2/products/', {
-        product_name:"ayojj",
+        product_name:"ayojjss",
         product_type:product_type,
         desc:"gxjgxjkqw",
         imgUrl:"vjhdv1hm"

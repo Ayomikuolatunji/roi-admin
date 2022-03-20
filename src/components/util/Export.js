@@ -2,7 +2,6 @@ import React from 'react';
 import { Header, Rating, Table } from 'semantic-ui-react'
 import { AllProd,postProds} from '../../hooks/api/reqquest';
 import { Button, Form, Message } from 'semantic-ui-react'
-import axios from "axios"
 
 export default function Export() {
     const [err,setErr]=React.useState("");
@@ -30,7 +29,36 @@ export default function Export() {
     <div className='p-3'>
         {/* post products */}
     <Form error>
-        <Form.Input label='Email' placeholder='joe@schmoe.com' />
+        <Form.Group widths='equal'>
+        <Form.Input
+            fluid
+            id='form-subcomponent-shorthand-input-first-name'
+            label='product_type'
+            placeholder=''
+            value={productType}
+            disabled
+        />
+        <Form.Input
+            fluid
+            id='form-subcomponent-shorthand-input-last-name'
+            label='product_name'
+            placeholder='Last name'
+        />
+        </Form.Group>
+        <Form.Group widths='equal'>
+        <Form.Input
+            fluid
+            id='form-subcomponent-shorthand-input-first-name'
+            label='First name'
+            placeholder='First name'
+        />
+        <Form.Input
+            fluid
+            id='form-subcomponent-shorthand-input-last-name'
+            label='Last name'
+            placeholder='Last name'
+        />
+        </Form.Group>
         <Message
         error
         header='Action Forbidden'
