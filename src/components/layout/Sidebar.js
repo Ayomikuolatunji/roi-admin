@@ -15,7 +15,7 @@ export default function Sidebar() {
     <div className='sidebasr'>
         <ul className='flex sm:flex-col justify-center  mt-10 text-center'>
             {Navdata.map((item,index)=>{
-                return <Link to={item.path} key={index} className="text-white sm:py-4 sm:px-3 sm:mr-3 px-2 sm:text-xl">{item.link} <span>{FaHome}</span></Link>
+                return <Link to={item.path} key={index} className="text-white sm:py-4 sm:px-3 sm:mr-3 px-2 sm:text-xl">{item.link}</Link>
             })}
         </ul>
     </div>

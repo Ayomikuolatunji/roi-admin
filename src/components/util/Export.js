@@ -15,6 +15,7 @@ export default function Export() {
     const [productImg,setProdImg]=React.useState('')
     const [loading,setloading]=React.useState(false)
     const [prodLoading,setProloading]=React.useState(true)
+    const [getFile,setFile]=React.useState("")
     const [subLoading,setSubLoading]=React.useState(false)
 
     const onImageChange =async(event) => {
@@ -44,6 +45,18 @@ export default function Export() {
               console.log(error)
             }
      }
+     const getProd=async()=>{
+      setProloading(true)
+      try {
+        const res=await AllProd()
+        // console.log(res.data.products)
+        setprods(res.data.products)
+        prodLoading(false);
+      } catch (error) {
+          setErr(error.message)
+          setProloading(false)
+      }
+    }
     let abort=React.useRef(true)
     React.useEffect(()=>{
       if(abort.current){
@@ -65,6 +78,8 @@ export default function Export() {
         abort.current=false
       }
     },[prodLoading])
+    // submit 
+    const ref = React.useRef();
    const onSubmit=async(e)=>{
        setSubLoading(true)
        e.preventDefault()
@@ -74,24 +89,13 @@ export default function Export() {
       const res=await postProds(productName,productType, productDesc,productImg)
        console.log(res)
        if(res.status===201){
-        const getProd=async()=>{
-          setProloading(true)
-          try {
-            const res=await AllProd()
-            // console.log(res.data.products)
-            setprods(res.data.products)
-            prodLoading(false);
-          } catch (error) {
-              setErr(error.message)
-              setProloading(false)
-          }
-        }
         getProd()
         setProdDesc("")
         setProdName("")
         setloading(false)
         setProdImg("")
         setSubLoading(false)
+        setFile("")
        }
    }
   return (
@@ -124,9 +128,13 @@ export default function Export() {
                   fluid
                   id='form-subcomponent-shorthand-input-first-name'
                   label='Product Image'
-                  onChange={onImageChange}
+                  onChange={(e)=>{
+                    setFile(e.target.files[0])
+                    onImageChange()
+                  }}
                   placeholder='First name'
                  className='w-11/12' 
+                 ref={ref}
              />}
               {productImg  ? <h1 className='text-green-400 font-extrabold text-xl'>Uploaded SuccessFully</h1> :""}
                   {loading ? <Dimmer active inverted>
@@ -154,7 +162,7 @@ export default function Export() {
         {/* lists prodducts */}
    {prodLoading ?  <Segment>
       <Dimmer active>
-        <Loader size='big'>Loading</Loader>
+        <Loader size='big'>Loading all exports products</Loader>
       </Dimmer>
 
       <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
