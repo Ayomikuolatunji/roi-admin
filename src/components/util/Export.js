@@ -59,10 +59,13 @@ export default function Export() {
        postProds(productType)
        getProd()
     }, [])
+   const onSubmit=(e)=>{
+       e.preventDefault()
+   }
   return (
     <div className='p-3'>
         {/* post products */}
-    <Form error>
+    <Form error onSubmit={onSubmit}>
         <Form.Group widths='equal'>
         <Form.Input
             fluid
@@ -77,7 +80,7 @@ export default function Export() {
             fluid
             id='form-subcomponent-shorthand-input-last-name'
             label='Product Name'
-            placeholder='Last name'
+            placeholder='Product name'
             value={productName}
         />
         </Form.Group>
@@ -104,7 +107,7 @@ export default function Export() {
         header='Action Forbidden'
         content='You can only sign up for an account once with a given e-mail address.'
         /> */}
-        <Button>Submit</Button>
+        <Button type="submit">Submit</Button>
     </Form>
         {/* lists prodducts */}
     <Table celled padded>
