@@ -12,3 +12,22 @@ export const AllProd=async()=>{
         }
     
 }
+
+export const postProds=async(product_name,product_type,imgUrl,desc)=>{
+    try{
+      const post=await axios({
+          method:"POST",
+          headers:{
+             "content-type":"application/json" 
+          },
+          data:JSON.stringify({
+              product_name,
+              product_type,
+              desc,
+              imgUrl,
+          })
+      })
+    }catch(err){
+
+    }
+}

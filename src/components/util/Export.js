@@ -22,18 +22,17 @@ export default function Export() {
     }, [])
   return (
     <div className='p-3'>
-          <Form error>
-            <Form.Input label='Email' placeholder='joe@schmoe.com' />
-            <Message
-            error
-            header='Action Forbidden'
-            content='You can only sign up for an account once with a given e-mail address.'
-            />
-            <Button>Submit</Button>
-        </Form>
-
         {/* post products */}
-        {/* prodducts */}
+    <Form error>
+        <Form.Input label='Email' placeholder='joe@schmoe.com' />
+        <Message
+        error
+        header='Action Forbidden'
+        content='You can only sign up for an account once with a given e-mail address.'
+        />
+        <Button>Submit</Button>
+    </Form>
+        {/* lists prodducts */}
     <Table celled padded>
     <Table.Header>
       <Table.Row>
