@@ -1,23 +1,29 @@
 import React from 'react';
 import { Header, Rating, Table } from 'semantic-ui-react'
-import { AllProd } from '../../hooks/api/reqquest';
+import { AllProd,postProds} from '../../hooks/api/reqquest';
 import { Button, Form, Message } from 'semantic-ui-react'
+import axios from "axios"
 
 export default function Export() {
     const [err,setErr]=React.useState("");
     const [prods,setprods]=React.useState([]);
+    const [productType]=React.useState("export")
+    const [productName,setProdName]=React.useState('')
+    const [productDesc,setProdDesc]=React.useState('')
+    const [productImg,setProdImg]=React.useState('')
 
     React.useEffect(()=>{
        const getProd=async()=>{
            try {
             const res=await AllProd()
-            console.log(res.data.products)
+            // console.log(res.data.products)
             setprods(res.data.products)
            } catch (error) {
                console.log("erro")
                setErr(error.message)
            }
        }
+       postProds(productType)
        getProd()
     }, [])
   return (

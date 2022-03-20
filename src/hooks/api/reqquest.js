@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const fetchProd="https://roi-investment.herokuapp.com/api/v2/products/";
-const postProd=""
+const postProd="https://roi-investment.herokuapp.com/api/v2/products/";
 
 export const AllProd=async()=>{
         try {
@@ -13,20 +13,22 @@ export const AllProd=async()=>{
     
 }
 
-export const postProds=async(product_name,product_type,imgUrl,desc)=>{
+export const postProds=async(product_type)=>{
     try{
-      const post=await axios({
-          method:"POST",
-          headers:{
-             "content-type":"application/json" 
-          },
-          data:JSON.stringify({
-              product_name,
-              product_type,
-              desc,
-              imgUrl,
-          })
+      const post=  axios.post('https://roi-investment.herokuapp.com/api/v2/products/', {
+        product_name:"ayojj",
+        product_type:product_type,
+        desc:"gxjgxjkqw",
+        imgUrl:"vjhdv1hm"
       })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      console.log(post)
+      return post
     }catch(err){
 
     }
