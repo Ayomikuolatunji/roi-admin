@@ -6,7 +6,7 @@ import { Button, Form, Message } from 'semantic-ui-react'
 export default function Export() {
     const [err,setErr]=React.useState("");
     const [prods,setprods]=React.useState([]);
-    const [productType]=React.useState("export")
+    const [productType]=React.useState("Export")
     const [productName,setProdName]=React.useState('')
     const [productDesc,setProdDesc]=React.useState('')
     const [productImg,setProdImg]=React.useState('')
@@ -33,37 +33,41 @@ export default function Export() {
         <Form.Input
             fluid
             id='form-subcomponent-shorthand-input-first-name'
-            label='product_type'
+            label='Product type is automatically set'
             placeholder=''
             value={productType}
             disabled
+            className='text-gray-700'
         />
         <Form.Input
             fluid
             id='form-subcomponent-shorthand-input-last-name'
-            label='product_name'
+            label='Product Name'
             placeholder='Last name'
+            value={productName}
         />
         </Form.Group>
         <Form.Group widths='equal'>
         <Form.Input
+           type='file'
             fluid
             id='form-subcomponent-shorthand-input-first-name'
-            label='First name'
+            label='Product Image'
             placeholder='First name'
         />
-        <Form.Input
+        <Form.TextArea
             fluid
             id='form-subcomponent-shorthand-input-last-name'
-            label='Last name'
-            placeholder='Last name'
+            label='Product Description'
+            placeholder='Product description'
+            value={productDesc}
         />
         </Form.Group>
-        <Message
+        {/* <Message
         error
         header='Action Forbidden'
         content='You can only sign up for an account once with a given e-mail address.'
-        />
+        /> */}
         <Button>Submit</Button>
     </Form>
         {/* lists prodducts */}
