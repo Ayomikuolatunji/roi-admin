@@ -1,7 +1,10 @@
 import React from 'react';
 import { Header, Rating, Table } from 'semantic-ui-react'
 import { AllProd,postProds} from '../../hooks/api/reqquest';
-import { Button, Form, Message } from 'semantic-ui-react'
+import { Button, Form, Message } from 'semantic-ui-react';
+import axios from "axios";
+
+
 
 export default function Export() {
     const [err,setErr]=React.useState("");
@@ -10,6 +13,34 @@ export default function Export() {
     const [productName,setProdName]=React.useState('')
     const [productDesc,setProdDesc]=React.useState('')
     const [productImg,setProdImg]=React.useState('')
+    console.log(productImg)
+
+
+    const onImageChange =async(event) => {
+        try{
+            if (event.target.files && event.target.files[0]) {
+                const fileUpload=event.target.files[0];
+                setProdImg(fileUpload)
+                 const response = await axios({
+                   method: 'GET',
+                   headers:{
+                     "Content-Type":"image/jpeg"
+                   },
+                      url:"https://115mf3u9df.execute-api.eu-west-3.amazonaws.com/default/collegeImgPreview"
+                   })
+                       // PUT request: for upload url to S3
+                   const result = await fetch(response.data.uploadURL, {
+                           method: 'PUT',
+                           body:fileUpload
+                   })
+                   console.log(response)
+                   console.log(result)
+                   }
+            }catch(error){
+              console.log(error)
+            }
+
+     }
 
     React.useEffect(()=>{
        const getProd=async()=>{
@@ -53,6 +84,7 @@ export default function Export() {
             fluid
             id='form-subcomponent-shorthand-input-first-name'
             label='Product Image'
+            onChange={onImageChange}
             placeholder='First name'
         />
         <Form.TextArea
