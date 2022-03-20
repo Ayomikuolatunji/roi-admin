@@ -3,6 +3,7 @@ import { Header, Rating, Table } from 'semantic-ui-react'
 import { AllProd } from '../../hooks/api/reqquest';
 
 export default function Export() {
+    const [err,setErr]=React.useState("")
     const [prods,setprods]=React.useState([])
 
     React.useEffect(()=>{
@@ -13,6 +14,7 @@ export default function Export() {
             setprods(res.data.products)
            } catch (error) {
                console.log("erro")
+               setErr(error.message)
            }
        }
        getProd()
@@ -32,7 +34,7 @@ export default function Export() {
 
     <Table.Body>
         {prods?.map((prod,index)=>{
-            return   <Table.Row>
+            return   <Table.Row key={index}>
             <Table.Cell>
               <Header as='h2' textAlign='center'>
                 A
@@ -52,7 +54,7 @@ export default function Export() {
               however, with some nonresponders.
             </Table.Cell>
           </Table.Row>
-        })}
+        }) && err}
     </Table.Body>
   </Table>
     </div>
