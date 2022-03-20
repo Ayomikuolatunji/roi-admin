@@ -44,23 +44,25 @@ export default function Export() {
             }
 
      }
-
+     const getProd=async()=>{
+      try {
+       const res=await AllProd()
+       // console.log(res.data.products)
+       setprods(res.data.products)
+      } catch (error) {
+          console.log("erro")
+          setErr(error.message)
+      }
+  }
     React.useEffect(()=>{
-       const getProd=async()=>{
-           try {
-            const res=await AllProd()
-            // console.log(res.data.products)
-            setprods(res.data.products)
-           } catch (error) {
-               console.log("erro")
-               setErr(error.message)
-           }
-       }
-       postProds(productType)
        getProd()
     }, [])
    const onSubmit=(e)=>{
        e.preventDefault()
+       if(productName || productDesc || productImg){
+         return console.log("please input all value")
+       }
+       postProds(productName,productType, productDesc,productImg)
    }
   return (
     <div className='p-3'>

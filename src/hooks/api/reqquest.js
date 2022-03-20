@@ -13,13 +13,13 @@ export const AllProd=async()=>{
     
 }
 
-export const postProds=async(product_type)=>{
+export const postProds=async(product_name,product_type,desc,imgUrl)=>{
     try{
       const post=  axios.post(postProd, {
-        product_name:"ayojjss",
+        product_name:product_name,
         product_type:product_type,
-        desc:"gxjgxjkqw",
-        imgUrl:"vjhdv1hm"
+        desc:desc,
+        imgUrl:imgUrl
       })
       .then(function (response) {
         console.log(response);
