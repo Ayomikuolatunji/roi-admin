@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header,Table } from 'semantic-ui-react'
 import { AllProd,postProds} from '../../hooks/api/reqquest';
-import { Button, Form,Dimmer,Loader} from 'semantic-ui-react';
+import { Button, Form,Dimmer,Loader,Segment,Image} from 'semantic-ui-react';
 import axios from "axios";
 
 
@@ -152,7 +152,15 @@ export default function Export() {
         <Button type="submit">{subLoading?"Request sent...": "Submit"}</Button>
     </Form>
         {/* lists prodducts */}
-   {prodLoading ? "loading" : <Table celled padded>
+   {prodLoading ?  <Segment>
+      <Dimmer active>
+        <Loader size='big'>Loading</Loader>
+      </Dimmer>
+
+      <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+      <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+      <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+    </Segment>: <Table celled padded>
     <Table.Header>
       <Table.Row>
         <Table.HeaderCell>Index</Table.HeaderCell>
