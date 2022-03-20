@@ -13,6 +13,7 @@ export default function Export() {
     const [productName,setProdName]=React.useState('')
     const [productDesc,setProdDesc]=React.useState('')
     const [productImg,setProdImg]=React.useState('')
+    const [loading,setloading]=React.useState(false)
     console.log(productImg)
 
 
@@ -26,7 +27,7 @@ export default function Export() {
                    headers:{
                      "Content-Type":"image/jpeg"
                    },
-                      url:"https://115mf3u9df.execute-api.eu-west-3.amazonaws.com/default/collegeImgPreview"
+                      url:"https://f13m9bw38h.execute-api.eu-west-3.amazonaws.com/default/ROi-img"
                    })
                        // PUT request: for upload url to S3
                    const result = await fetch(response.data.uploadURL, {
