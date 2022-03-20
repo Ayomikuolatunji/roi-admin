@@ -4,9 +4,8 @@ const fetchProd="https://roi-investment.herokuapp.com/api/v2/products/";
 
 export const AllProd=async()=>{
         try {
-          const res=await axios(fetchProd)
-            console.log(res)
-            return res
+          const {data:{data}}=await axios(fetchProd)
+            return data
         } catch (error) {
            console.log(error)
         }
