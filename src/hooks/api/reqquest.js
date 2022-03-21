@@ -44,7 +44,7 @@ export const deleteProduct=async(rm)=>{
 
 export const updateProd=async(id,product_name,product_type,desc,imgUrl)=>{
   try{
-    const post=await axios.post(`http://localhost:5000/api/v2/products/${id}`, {
+    const post=await axios.patch(`http://localhost:5000/api/v2/products/${id}/`, {
       product_name:product_name,
       product_type:product_type,
       desc:desc,

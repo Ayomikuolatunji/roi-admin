@@ -17,6 +17,9 @@ export default function Export() {
     const [subLoading,setSubLoading]=React.useState(false)
     const [open, setOpen] = React.useState(false)
     const [getId,setGetId]=React.useState("")
+    const [updateName,setUpdateName]=React.useState("")
+    const [updateImg,setupdateImg]=React.useState("")
+    const [updateType,setUpdateType]=React.useState("")
 
     const onImageChange =async(event) => {
         setloading(true)
@@ -105,15 +108,12 @@ export default function Export() {
    }
    const onUpdate=async(e)=>{
      e.preventDefault()
-      console.log(getId)
-      setOpen(false)
       if(!productName || !productDesc ){
         return console.log("please input all value")
       }
-      const res=await updateProd(productName.toUpperCase(),productType.toUpperCase(), productDesc,productImg)
+      const res=await updateProd(getId,productName.toUpperCase(),productType.toUpperCase(), productDesc,productImg)
       console.log(res)
       if(res.status===201){
-       getProd()
        setProdDesc("")
        setProdName("")
        setloading(false)
@@ -121,6 +121,8 @@ export default function Export() {
        setSubLoading(false)
        document.getElementById("myForm").reset(); 
       }
+      console.log(getId)
+      setOpen(false)
    }
   return (
     <div className='p-3 mx-auto w-10/12'>
