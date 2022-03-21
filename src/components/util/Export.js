@@ -1,5 +1,5 @@
 import React from 'react';
-import { AllProd,postProds,deleteProduct} from '../../hooks/api/reqquest';
+import { AllProd,postProds,deleteProduct,updateProd} from '../../hooks/api/reqquest';
 import { Button, Form,Dimmer,Loader,Segment,Image,Message,Table, Header
 ,Modal } from 'semantic-ui-react';
 import axios from "axios";
@@ -103,10 +103,24 @@ export default function Export() {
        }
        console.log(del)
    }
-   const onUpdate=(e)=>{
+   const onUpdate=async(e)=>{
      e.preventDefault()
       console.log(getId)
       setOpen(false)
+      if(!productName || !productDesc ){
+        return console.log("please input all value")
+      }
+      const res=await updateProd(productName.toUpperCase(),productType.toUpperCase(), productDesc,productImg)
+      console.log(res)
+      if(res.status===201){
+       getProd()
+       setProdDesc("")
+       setProdName("")
+       setloading(false)
+       setProdImg("")
+       setSubLoading(false)
+       document.getElementById("myForm").reset(); 
+      }
    }
   return (
     <div className='p-3 mx-auto w-10/12'>
