@@ -1,7 +1,7 @@
 import React from 'react';
 import { AllProd,postProds,deleteProduct,updateProd} from '../../hooks/api/reqquest';
 import { Button, Form,Dimmer,Loader,Segment,Image,Message,Table, Header
-,Modal } from 'semantic-ui-react';
+,Modal} from 'semantic-ui-react';
 import axios from "axios";
 
 
@@ -20,7 +20,7 @@ export default function Export() {
     const [updateName,setUpdateName]=React.useState("")
     const [updateImg,setupdateImg]=React.useState("")
     const [updateType]=React.useState("Export")
-    const [updateDesc,setUpdateDesc]=React.useState("gcjhjh")
+    const [updateDesc,setUpdateDesc]=React.useState("")
   
 
     const onImageChange =async(event) => {
@@ -145,9 +145,9 @@ export default function Export() {
             disabled
           
         />
-          <input 
+          <Form.Input 
+          label="Porduct name"
           type="text" 
-          id="fname" name="fname" 
           value={updateName}
           onChange={(e)=>setUpdateName(e.target.value)}
           />
@@ -165,7 +165,7 @@ export default function Export() {
                  className='w-11/12' 
                  accept=".jpg, .jpeg, .png"
              />}
-             <h1>{getId.imgUrl}</h1>
+             <h1>{updateImg}</h1>
               {productImg  ? <h1 className='text-green-400 font-extrabold text-xl'>Uploaded SuccessFully</h1> :""}
                   {loading ? <Dimmer active inverted>
                     <Loader size='mini'>Uploading img please wait...</Loader>
@@ -173,10 +173,10 @@ export default function Export() {
             :""}
           </div>
           <div className='w-1/2'>
-            <input
+            <Form.TextArea
               id='form-subcomponent-shorthand-input-last-name'
               label='Product Description'
-              value={getId.desc}
+              value={updateDesc}
               onChange={(e)=>setUpdateDesc(e.target.value)}
               className="w-11/12"
             />
@@ -303,8 +303,10 @@ export default function Export() {
               <Table.Cell>
                  <button onClick={()=>{
                    setOpen(true);
-                   setGetId({_id, desc,product_name,imgUrl})
+                   setGetId(_id)
                    setUpdateName(product_name)
+                   setupdateImg(imgUrl)
+                   setUpdateDesc(desc)
                  }}>update</button>
               </Table.Cell>
               <Table.Cell>
