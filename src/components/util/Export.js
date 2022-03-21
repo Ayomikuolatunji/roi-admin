@@ -5,7 +5,6 @@ import { Button, Form,Dimmer,Loader,Segment,Image,Message,Table, Header
 import axios from "axios";
 
 
-
 export default function Export() {
     const [err,setErr]=React.useState(false);
     const [prods,setprods]=React.useState([]);
@@ -16,6 +15,8 @@ export default function Export() {
     const [loading,setloading]=React.useState(false)
     const [prodLoading,setProloading]=React.useState(true)
     const [subLoading,setSubLoading]=React.useState(false)
+    const [open, setOpen] = React.useState(false)
+    const [getId,setGetId]=React.useState("")
 
     const onImageChange =async(event) => {
         setloading(true)
@@ -102,8 +103,90 @@ export default function Export() {
        }
        console.log(del)
    }
+   const onUpdate=(id)=>{
+      console.log(id)
+   }
   return (
     <div className='p-3 mx-auto w-10/12'>
+      {/* modal */}
+      <Modal
+      onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+    >
+      <Modal.Header>Select a Photo</Modal.Header>
+      <Modal.Content >
+      <Form error onSubmit={onSubmit} className="shadow-md sm:p-3" id="myForm">
+        <Form.Group widths='equal'>
+        <Form.Input
+            fluid
+            id='form-subcomponent-shorthand-input-first-name'
+            label='Product type is automatically set'
+            placeholder=''
+            value={productType}
+            disabled
+            className='text-gray-700'
+        />
+        <Form.Input
+            fluid
+            id='form-subcomponent-shorthand-input-last-name'
+            label='Product Name'
+            placeholder='Product name'
+            value={productName}
+            onChange={(e)=>setProdName(e.target.value)}
+        />
+        </Form.Group>
+        <Form.Group className='w-100'>
+          <div className='w-1/2'>
+            {<Form.Input
+              type='file'
+                  fluid
+                  id='form-subcomponent-shorthand-input-first-name'
+                  label='Product Image'
+                  onChange={(event)=>{
+                    onImageChange(event)
+                  }}
+                  placeholder='First name'
+                 className='w-11/12' 
+                 accept=".jpg, .jpeg, .png"
+             />}
+              {productImg  ? <h1 className='text-green-400 font-extrabold text-xl'>Uploaded SuccessFully</h1> :""}
+                  {loading ? <Dimmer active inverted>
+                    <Loader size='mini'>Uploading img please wait...</Loader>
+                  </Dimmer>
+            :""}
+          </div>
+          <div className='w-1/2'>
+            <Form.TextArea
+              id='form-subcomponent-shorthand-input-last-name'
+              label='Product Description'
+              placeholder='Product description'
+              value={productDesc}
+              onChange={(e)=>setProdDesc(e.target.value)}
+              className="w-11/12"
+            />
+          </div>
+        </Form.Group>
+       {/* {err ? <Message
+        error
+        content='You can only sign up for an account once with a given e-mail address.'
+        /> : ""} */}
+        <Button type="submit">{subLoading?"Request sent...": "Submit"}</Button>
+    </Form>
+      </Modal.Content>
+      <Modal.Actions>
+        <Button color='black' onClick={() => setOpen(false)}>
+          Nope
+        </Button>
+        <Button
+          content="Yep, that's me"
+          labelPosition='right'
+          icon='checkmark'
+          onClick={() => setOpen(false)}
+          positive
+        />
+      </Modal.Actions>
+    </Modal>
         {/* post products */}
     <Form error onSubmit={onSubmit} className="shadow-md sm:p-3" id="myForm">
         <Form.Group widths='equal'>
@@ -179,6 +262,7 @@ export default function Export() {
         <Table.HeaderCell>Image</Table.HeaderCell>
         <Table.HeaderCell>Products Type</Table.HeaderCell>
         <Table.HeaderCell>Description</Table.HeaderCell>
+        <Table.HeaderCell>Update Product</Table.HeaderCell>
         <Table.HeaderCell>Delete Product</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
@@ -202,6 +286,12 @@ export default function Export() {
               </Table.Cell>
               <Table.Cell>
                 {desc}
+              </Table.Cell>
+              <Table.Cell>
+                 <button onClick={()=>{
+                   setOpen(true);
+                   onUpdate(_id)
+                 }}>update</button>
               </Table.Cell>
               <Table.Cell>
                  <button onClick={()=>{deleteProd(_id)}}>Delete</button>
