@@ -17,10 +17,10 @@ export default function Export() {
     const [subLoading,setSubLoading]=React.useState(false)
     const [open, setOpen] = React.useState(false)
     const [getId,setGetId]=React.useState("")
-    const [updateName,setUpdateName]=React.useState("")
-    const [updateImg,setupdateImg]=React.useState("")
+    const [updateName,setUpdateName]=React.useState(productName)
+    const [updateImg,setupdateImg]=React.useState(productImg)
     const [updateType]=React.useState("Export")
-    const [updateDesc,setUpdateDesc]=React.useState("")
+    const [updateDesc,setUpdateDesc]=React.useState(productDesc)
 
     const onImageChange =async(event) => {
         setloading(true)
@@ -55,7 +55,7 @@ export default function Export() {
       try {
         const res=await AllProd()
         // console.log(res.data.products)
-        setprods(res.data.products)
+        setprods(res.data.products.reverse())
         prodLoading(false);
       } catch (error) {
           setErr(error.message)
@@ -70,7 +70,7 @@ export default function Export() {
           try {
             const res=await AllProd()
             // console.log(res.data.products)
-            setprods(res.data.products)
+            setprods(res.data.products.reverse())
             prodLoading(false);
           } catch (error) {
               setErr(error.message)
@@ -224,7 +224,7 @@ export default function Export() {
             onChange={(e)=>setProdName(e.target.value)}
         />
         </Form.Group>
-        <div className='w-full mx-auto flex'>
+        <div className='w-full mx-auto sm:flex'>
           <div className='sm:w-1/2 mx-auto w-full'>
             {<Form.Input
               type='file'
@@ -306,7 +306,7 @@ export default function Export() {
               <Table.Cell>
                  <button onClick={()=>{
                    setOpen(true);
-                   setGetId(_id)
+                   setGetId(_id, desc,productName,productImg)
                  }}>update</button>
               </Table.Cell>
               <Table.Cell>
