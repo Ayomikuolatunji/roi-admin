@@ -1,7 +1,7 @@
 import React from 'react';
-import { Header,Table } from 'semantic-ui-react'
 import { AllProd,postProds,deleteProduct} from '../../hooks/api/reqquest';
-import { Button, Form,Dimmer,Loader,Segment,Image} from 'semantic-ui-react';
+import { Button, Form,Dimmer,Loader,Segment,Image,Message,Table, Header
+,Modal } from 'semantic-ui-react';
 import axios from "axios";
 
 
@@ -49,7 +49,7 @@ export default function Export() {
       try {
         const res=await AllProd()
         // console.log(res.data.products)
-        setprods(res.data.products)
+        setprods(res.data.products.reverse())
         prodLoading(false);
       } catch (error) {
           setErr(error.message)
@@ -64,7 +64,7 @@ export default function Export() {
           try {
             const res=await AllProd()
             // console.log(res.data.products)
-            setprods(res.data.products)
+            setprods(res.data.products.reverse())
             prodLoading(false);
           } catch (error) {
               setErr(error.message)
@@ -83,7 +83,7 @@ export default function Export() {
        if(!productName || !productDesc ){
          return console.log("please input all value")
        }
-      const res=await postProds(productName,productType, productDesc,productImg)
+      const res=await postProds(productName.toUpperCase(),productType.toUpperCase(), productDesc,productImg)
        console.log(res)
        if(res.status===201){
         getProd()
@@ -193,7 +193,7 @@ export default function Export() {
                   {index+1}
                 </Header>
               </Table.Cell>
-              <Table.Cell singleLine>{product_name}</Table.Cell>
+              <Table.Cell singleLine>{product_name.toUpperCase()}</Table.Cell>
               <Table.Cell>
                 <img src={imgUrl} alt={product_name} className="w-24 h-24"/>
               </Table.Cell>
@@ -209,7 +209,9 @@ export default function Export() {
             </Table.Row>
             }
             return null
-        }):"no product yet")}
+        }): <Table.Row className='text-center bg-red-500 w-full'>
+              <Message color='red'>No product is added yet...</Message>
+        </Table.Row>)}
     </Table.Body>
   </Table>}
     </div>
