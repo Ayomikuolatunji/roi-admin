@@ -103,8 +103,9 @@ export default function Export() {
        }
        console.log(del)
    }
-   const onUpdate=(id)=>{
-      console.log(id)
+   const onUpdate=(e)=>{
+     e.preventDefault()
+      console.log(getId)
    }
   return (
     <div className='p-3 mx-auto w-10/12'>
@@ -116,7 +117,7 @@ export default function Export() {
     >
       <Modal.Header>Select a Photo</Modal.Header>
       <Modal.Content >
-      <Form error onSubmit={onSubmit} className="shadow-md sm:p-3" id="myForm">
+      <Form error onSubmit={onUpdate} className="shadow-md sm:p-3" id="myForm">
         <Form.Group widths='equal'>
         <Form.Input
             fluid
@@ -176,17 +177,23 @@ export default function Export() {
       </Modal.Content>
       <Modal.Actions>
         <Button color='black' onClick={() => setOpen(false)}>
-          Nope
+          Cancel
         </Button>
         <Button
-          content="Yep, that's me"
+          content="Update product"
           labelPosition='right'
           icon='checkmark'
-          onClick={() => setOpen(false)}
+          onClick={() => {
+            setOpen(false)
+          }}
+          type="submit"
           positive
         />
       </Modal.Actions>
     </Modal>
+
+
+
         {/* post products */}
     <Form error onSubmit={onSubmit} className="shadow-md sm:p-3" id="myForm">
         <Form.Group widths='equal'>
@@ -290,7 +297,7 @@ export default function Export() {
               <Table.Cell>
                  <button onClick={()=>{
                    setOpen(true);
-                   onUpdate(_id)
+                   setGetId(_id)
                  }}>update</button>
               </Table.Cell>
               <Table.Cell>
