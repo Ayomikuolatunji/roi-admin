@@ -17,10 +17,10 @@ export default function Export() {
     const [subLoading,setSubLoading]=React.useState(false)
     const [open, setOpen] = React.useState(false)
     const [getId,setGetId]=React.useState("")
-    const [updateName,setUpdateName]=React.useState(productName)
-    const [updateImg,setupdateImg]=React.useState(productImg)
+    const [updateName,setUpdateName]=React.useState(getId.product_name)
+    const [updateImg,setupdateImg]=React.useState("")
     const [updateType]=React.useState("Export")
-    const [updateDesc,setUpdateDesc]=React.useState(productDesc)
+    const [updateDesc,setUpdateDesc]=React.useState("")
 
     const onImageChange =async(event) => {
         setloading(true)
@@ -110,8 +110,8 @@ export default function Export() {
    }
    const onUpdate=async(e)=>{
      e.preventDefault()
-      if(!updateName || !updateDesc || !updateImg){
-        return console.log("please input all value")
+      if(!updateImg || !updateName || !updateDesc){
+        console.log("error")
       }
       const res=await updateProd(getId,updateName.toUpperCase(),updateType.toUpperCase(), updateDesc,updateImg)
       console.log(res)
@@ -120,7 +120,6 @@ export default function Export() {
        setSubLoading(false)
        document.getElementById("myForm").reset(); 
       }
-      console.log(getId,productName.toUpperCase(),productType.toUpperCase(), productDesc,updateImg)
       setOpen(false)
    }
   return (
@@ -148,7 +147,6 @@ export default function Export() {
             fluid
             id='form-subcomponent-shorthand-input-last-name'
             label='Product Name'
-            placeholder='Product name'
             value={updateName}
             onChange={(e)=>setUpdateName(e.target.value)}
         />
@@ -163,10 +161,10 @@ export default function Export() {
                   onChange={(event)=>{
                     onImageChange(event)
                   }}
-                  placeholder='First name'
                  className='w-11/12' 
                  accept=".jpg, .jpeg, .png"
              />}
+             <h1>{getId.imgUrl}</h1>
               {productImg  ? <h1 className='text-green-400 font-extrabold text-xl'>Uploaded SuccessFully</h1> :""}
                   {loading ? <Dimmer active inverted>
                     <Loader size='mini'>Uploading img please wait...</Loader>
@@ -177,8 +175,7 @@ export default function Export() {
             <Form.TextArea
               id='form-subcomponent-shorthand-input-last-name'
               label='Product Description'
-              placeholder='Product description'
-              value={updateDesc}
+              value={getId.desc}
               onChange={(e)=>setUpdateDesc(e.target.value)}
               className="w-11/12"
             />
@@ -238,7 +235,7 @@ export default function Export() {
                  className='input-w mx-auto' 
                  accept=".jpg, .jpeg, .png"
              />}
-              {productImg  ? <h1 className='text-green-400 font-extrabold text-xl'>Uploaded SuccessFully</h1> :""}
+              {updateImg ? <h1 className='text-green-400 font-extrabold text-xl'>Uploaded SuccessFully</h1> : <h1>{getId.imgUrl}</h1>}
                   {loading ? <Dimmer active inverted>
                     <Loader size='mini'>Uploading img please wait...</Loader>
                   </Dimmer>
@@ -306,7 +303,7 @@ export default function Export() {
               <Table.Cell>
                  <button onClick={()=>{
                    setOpen(true);
-                   setGetId(_id, desc,productName,productImg)
+                   setGetId({_id, desc,product_name,imgUrl})
                  }}>update</button>
               </Table.Cell>
               <Table.Cell>
