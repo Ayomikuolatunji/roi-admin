@@ -2,7 +2,7 @@ import axios from "axios";
 
 const fetchProd="https://roi-investment.herokuapp.com/api/v2/products/";
 const postProd="https://roi-investment.herokuapp.com/api/v2/products/";
-const delApi="https://roi-investment.herokuapp.com/api/v2/products"
+const delApi="https://roi-investment.herokuapp.com/api/v2/products/"
 
 export const AllProd=async()=>{
         try {
@@ -33,9 +33,11 @@ export const postProds=async(product_name,product_type,desc,imgUrl)=>{
 
 export const deleteProduct=async(rm)=>{
     try{
-       const del=await axios.delete(`${delApi}/${rm}`);
+       const del=await axios.delete(delApi,{
+         id:rm
+      })
        return del
     }catch(err){
-
+       console.log(err)
     }
 }

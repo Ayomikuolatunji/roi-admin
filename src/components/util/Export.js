@@ -95,8 +95,9 @@ export default function Export() {
         document.getElementById("myForm").reset(); 
        }
    }
-   const deleteProduct=async()=>{
-     
+   const deleteProd=async(rm)=>{
+       const del=await deleteProduct(rm)
+       console.log(del)
    }
   return (
     <div className='p-3 mx-auto w-10/12'>
@@ -175,12 +176,13 @@ export default function Export() {
         <Table.HeaderCell>Image</Table.HeaderCell>
         <Table.HeaderCell>Products Type</Table.HeaderCell>
         <Table.HeaderCell>Description</Table.HeaderCell>
+        <Table.HeaderCell>Delete Product</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 
     <Table.Body>
         {(err && "") || (prods?.map((prod,index)=>{
-            const {imgUrl,product_type,product_name, desc}=prod
+            const {id,imgUrl,product_type,product_name, desc}=prod
             if(product_type==="Export"){
               return <Table.Row key={index}>
               <Table.Cell>
@@ -197,6 +199,9 @@ export default function Export() {
               </Table.Cell>
               <Table.Cell>
                 {desc}
+              </Table.Cell>
+              <Table.Cell>
+                 <button onClick={()=>{deleteProd(id)}}>Delete</button>
               </Table.Cell>
             </Table.Row>
             }
