@@ -17,10 +17,11 @@ export default function Export() {
     const [subLoading,setSubLoading]=React.useState(false)
     const [open, setOpen] = React.useState(false)
     const [getId,setGetId]=React.useState("")
-    const [updateName,setUpdateName]=React.useState(getId.product_name)
+    const [updateName,setUpdateName]=React.useState("getId.product_name")
     const [updateImg,setupdateImg]=React.useState("")
     const [updateType]=React.useState("Export")
     const [updateDesc,setUpdateDesc]=React.useState("")
+    console.log(productName)
 
     const onImageChange =async(event) => {
         setloading(true)
@@ -147,7 +148,7 @@ export default function Export() {
             fluid
             id='form-subcomponent-shorthand-input-last-name'
             label='Product Name'
-            value={updateName}
+            // value={getId.product_name}
             onChange={(e)=>setUpdateName(e.target.value)}
         />
         </Form.Group>
