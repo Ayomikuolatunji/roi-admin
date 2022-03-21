@@ -1,7 +1,7 @@
 import React from 'react';
 import { AllProd,postProds,deleteProduct,updateProd} from '../../hooks/api/reqquest';
 import { Button, Form,Dimmer,Loader,Segment,Image,Message,Table, Header
-,Modal} from 'semantic-ui-react';
+,Modal,Icon} from 'semantic-ui-react';
 import axios from "axios";
 
 
@@ -303,16 +303,16 @@ export default function Local() {
                 {desc}
               </Table.Cell>
               <Table.Cell>
-                 <button onClick={()=>{
+                 <Button onClick={()=>{
                    setOpen(true);
                    setGetId(_id)
                    setUpdateName(product_name)
                    setupdateImg(imgUrl)
                    setUpdateDesc(desc)
-                 }}>update</button>
+                 }} color='yellow'>update</Button>
               </Table.Cell>
               <Table.Cell>
-                 <button onClick={()=>{deleteProd(_id)}}>Delete</button>
+                 <Button onClick={()=>{deleteProd(_id)}}>  <Icon name='trash' />Delete</Button>
               </Table.Cell>
             </Table.Row>
             }
