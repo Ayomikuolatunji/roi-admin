@@ -1,6 +1,6 @@
 import React from 'react';
 import { Header,Table } from 'semantic-ui-react'
-import { AllProd,postProds} from '../../hooks/api/reqquest';
+import { AllProd,postProds,deleteProduct} from '../../hooks/api/reqquest';
 import { Button, Form,Dimmer,Loader,Segment,Image} from 'semantic-ui-react';
 import axios from "axios";
 
@@ -15,7 +15,6 @@ export default function Export() {
     const [productImg,setProdImg]=React.useState('')
     const [loading,setloading]=React.useState(false)
     const [prodLoading,setProloading]=React.useState(true)
-    const [getFile,setFile]=React.useState("")
     const [subLoading,setSubLoading]=React.useState(false)
 
     const onImageChange =async(event) => {
@@ -79,9 +78,7 @@ export default function Export() {
       }
     },[prodLoading])
     // submit 
-    const ref = React.useRef();
    const onSubmit=async(e)=>{
-       setSubLoading(true)
        e.preventDefault()
        if(!productName || !productDesc ){
          return console.log("please input all value")
@@ -95,13 +92,16 @@ export default function Export() {
         setloading(false)
         setProdImg("")
         setSubLoading(false)
-        setFile("")
+        document.getElementById("myForm").reset(); 
        }
+   }
+   const deleteProduct=async()=>{
+     
    }
   return (
     <div className='p-3 mx-auto w-10/12'>
         {/* post products */}
-    <Form error onSubmit={onSubmit} className="shadow-md sm:p-3">
+    <Form error onSubmit={onSubmit} className="shadow-md sm:p-3" id="myForm">
         <Form.Group widths='equal'>
         <Form.Input
             fluid
@@ -128,13 +128,12 @@ export default function Export() {
                   fluid
                   id='form-subcomponent-shorthand-input-first-name'
                   label='Product Image'
-                  onChange={(e)=>{
-                    setFile(e.target.files[0])
-                    onImageChange()
+                  onChange={(event)=>{
+                    onImageChange(event)
                   }}
                   placeholder='First name'
                  className='w-11/12' 
-                 ref={ref}
+                 accept=".jpg, .jpeg, .png"
              />}
               {productImg  ? <h1 className='text-green-400 font-extrabold text-xl'>Uploaded SuccessFully</h1> :""}
                   {loading ? <Dimmer active inverted>
