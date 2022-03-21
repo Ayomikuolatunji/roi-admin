@@ -42,6 +42,7 @@
         height: calc(120px - 60px);
         z-index: 99;
         display: block;
+
     }
     .main{
         width: 100%;

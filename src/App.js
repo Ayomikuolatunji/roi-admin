@@ -9,6 +9,7 @@ import Local from "./components/util/Local"
 import "./app.css"
 import Export from './components/util/Export';
 import ImgSlider from './components/util/ImgSlider';
+import Other from './components/util/Other';
 
 
 export default function app() {
@@ -16,7 +17,7 @@ export default function app() {
     <>
        <Header/>
        <div className='app'>
-             <div i relative className='sidebar'>
+             <div  className='sidebar'>
                 <Sidebar/>
              </div>
              <div className='main'>
@@ -26,6 +27,7 @@ export default function app() {
                     <Route path="/real-estate" component={Estate}/>
                     <Route path="/local-products" component={Local}/>
                     <Route path="/img-slider" component={ImgSlider}/>
+                    <Route path="/other-product" component={Other}/>
                     <Route path="/" component={Main}/>
                   </Switch>
              </div>

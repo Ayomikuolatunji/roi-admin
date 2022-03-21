@@ -5,10 +5,10 @@ import { Button, Form,Dimmer,Loader,Segment,Image,Message,Table, Header
 import axios from "axios";
 
 
-export default function ImgSlider() {
+export default function Other() {
     const [err,setErr]=React.useState(false);
     const [prods,setprods]=React.useState([]);
-    const [productType]=React.useState("slider")
+    const [productType]=React.useState("other")
     const [productName,setProdName]=React.useState('')
     const [productDesc,setProdDesc]=React.useState('')
     const [productImg,setProdImg]=React.useState('')
@@ -19,7 +19,7 @@ export default function ImgSlider() {
     const [getId,setGetId]=React.useState("")
     const [updateName,setUpdateName]=React.useState("")
     const [updateImg,setupdateImg]=React.useState("")
-    const [updateType]=React.useState("slider")
+    const [updateType]=React.useState("other")
     const [updateDesc,setUpdateDesc]=React.useState("")
     const [inputErr,setInputErr]=React.useState("")
   
@@ -285,7 +285,7 @@ export default function ImgSlider() {
         <Table.Cell><h1 className='text-red-500 text-xl'>Cant load product lists due to bad internet connection</h1></Table.Cell>
       </Table.Row>) || (prods.length>0 ? prods.map((prod,index)=>{
             const {_id,imgUrl,product_type,product_name, desc}=prod
-            if(product_type.toLowerCase()==="slider".toLowerCase()){
+            if(product_type.toLowerCase()==="other".toLowerCase()){
               return <Table.Row key={index}>
               <Table.Cell>
                 <Header as='h2' textAlign='center'>
@@ -297,7 +297,7 @@ export default function ImgSlider() {
                 <img src={imgUrl} alt={product_name} className="w-24 h-24"/>
               </Table.Cell>
               <Table.Cell>
-               HOME PAGE {product_type}
+                {product_type} PRODUCTS
               </Table.Cell>
               <Table.Cell>
                 {desc}
