@@ -184,7 +184,7 @@ export default function Export() {
     </Table.Header>
 
     <Table.Body>
-        {(err && "") || (prods?.map((prod,index)=>{
+        {(err && "") || (prods.length>0 ? prods?.map((prod,index)=>{
             const {_id,imgUrl,product_type,product_name, desc}=prod
             if(product_type==="Export"){
               return <Table.Row key={index}>
@@ -209,7 +209,7 @@ export default function Export() {
             </Table.Row>
             }
             return null
-        }))}
+        }):"no product yet")}
     </Table.Body>
   </Table>}
     </div>
