@@ -21,6 +21,7 @@ export default function Export() {
     const [updateImg,setupdateImg]=React.useState("")
     const [updateType]=React.useState("Export")
     const [updateDesc,setUpdateDesc]=React.useState("")
+    const [inputErr,setInputErr]=React.useState("")
   
 
     const onImageChange =async(event) => {
@@ -88,7 +89,7 @@ export default function Export() {
    const onSubmit=async(e)=>{
        e.preventDefault()
        if(!productName || !productDesc ){
-         return console.log("please input all value")
+         return setInputErr("please input all value")
        }
       const res=await postProds(productName.toUpperCase(),productType.toUpperCase(), productDesc,productImg)
        console.log(res)
@@ -97,6 +98,7 @@ export default function Export() {
         setProdDesc("")
         setProdName("")
         setloading(false)
+        setInputErr("")
         setProdImg("")
         setSubLoading(false)
         document.getElementById("myForm").reset(); 
@@ -152,8 +154,8 @@ export default function Export() {
           onChange={(e)=>setUpdateName(e.target.value)}
           />
         </Form.Group>
-        <Form.Group className='w-100'>
-          <div className='w-1/2'>
+        <Form.Group className='w-full'>
+          <div className='sm:w-1/2 w-full sm:mb-0 mb-3 sm:pl-0 pl-8'>
             {<Form.Input
               type='file'
                   fluid
@@ -172,13 +174,13 @@ export default function Export() {
                   </Dimmer>
             :""}
           </div>
-          <div className='w-1/2'>
-            <Form.TextArea
+          <div className='sm:w-1/2 w-full sm:mb-0 mb-3 sm:p-0 pl-8'>
+            <textarea
               id='form-subcomponent-shorthand-input-last-name'
-              label='Product Description'
+              
               value={updateDesc}
               onChange={(e)=>setUpdateDesc(e.target.value)}
-              className="w-11/12"
+              className="w-full mx-auto sm:p-0"
             />
           </div>
         </Form.Group>
@@ -188,6 +190,7 @@ export default function Export() {
           icon='checkmark'
           type="submit"
           positive
+          className='mt-3'
         />
     </Form>
       </Modal.Content>
@@ -252,10 +255,7 @@ export default function Export() {
             />
           </div>
         </div>
-       {/* {err ? <Message
-        error
-        content='You can only sign up for an account once with a given e-mail address.'
-        /> : ""} */}
+       {inputErr && <Message color='red'>{inputErr}/Message>}
         <Button type="submit">{subLoading?"Request sent...": "Submit"}</Button>
     </Form>
         {/* lists prodducts */}
