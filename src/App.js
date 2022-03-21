@@ -8,6 +8,7 @@ import Mineral from './components/util/Mineral';
 import Local from "./components/util/Local"
 import "./app.css"
 import Export from './components/util/Export';
+import ImgSlider from './components/util/ImgSlider';
 
 
 export default function app() {
@@ -22,8 +23,9 @@ export default function app() {
                   <Switch>
                     <Route path="/export-products" component={Export}/>
                     <Route path="/mineral-resource" component={Mineral}/>
-                    <Route path="/realestate" component={Estate}/>
+                    <Route path="/real-estate" component={Estate}/>
                     <Route path="/local-products" component={Local}/>
+                    <Route path="/img-slider" component={ImgSlider}/>
                     <Route path="/" component={Main}/>
                   </Switch>
              </div>

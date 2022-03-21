@@ -1,11 +1,11 @@
 import React from 'react';
 import { AllProd,postProds,deleteProduct,updateProd} from '../../hooks/api/reqquest';
 import { Button, Form,Dimmer,Loader,Segment,Image,Message,Table, Header
-,Modal} from 'semantic-ui-react';
+,Modal,Icon} from 'semantic-ui-react';
 import axios from "axios";
 
 
-export default function Export() {
+export default function Local() {
     const [err,setErr]=React.useState(false);
     const [prods,setprods]=React.useState([]);
     const [productType]=React.useState("Export")
@@ -285,7 +285,7 @@ export default function Export() {
         <Table.Cell><h1 className='text-red-500 text-xl'>Cant load product lists due to bad internet connection</h1></Table.Cell>
       </Table.Row>) || (prods.length>0 ? prods.map((prod,index)=>{
             const {_id,imgUrl,product_type,product_name, desc}=prod
-            if(product_type.toLowerCase()==="EXPORT".toLowerCase()){
+            if(product_type.toLowerCase()==="Export".toLowerCase()){
               return <Table.Row key={index}>
               <Table.Cell>
                 <Header as='h2' textAlign='center'>
@@ -303,16 +303,16 @@ export default function Export() {
                 {desc}
               </Table.Cell>
               <Table.Cell>
-                 <button onClick={()=>{
+                 <Button onClick={()=>{
                    setOpen(true);
                    setGetId(_id)
                    setUpdateName(product_name)
                    setupdateImg(imgUrl)
                    setUpdateDesc(desc)
-                 }}>update</button>
+                 }} color='yellow'>update</Button>
               </Table.Cell>
               <Table.Cell>
-                 <button onClick={()=>{deleteProd(_id)}}>Delete</button>
+                 <Button onClick={()=>{deleteProd(_id)}}>  <Icon name='trash' />Delete</Button>
               </Table.Cell>
             </Table.Row>
             }

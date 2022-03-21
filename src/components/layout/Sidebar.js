@@ -9,7 +9,8 @@ export default function Sidebar() {
         {link:"Export", path:"/export-products"},
         {link:"Local Products", path:"/local-products"},
         {link:"Mineral Resources", path:"/mineral-resource"},
-        {link:"Real Estate", path:"/realestate"},
+        {link:"Real Estate", path:"/real-estate"},
+        {link:"Img Slider", path:"/img-slider"},
     ]
   return (
     <div className='sidebasr'>
