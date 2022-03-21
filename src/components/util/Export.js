@@ -17,11 +17,11 @@ export default function Export() {
     const [subLoading,setSubLoading]=React.useState(false)
     const [open, setOpen] = React.useState(false)
     const [getId,setGetId]=React.useState("")
-    const [updateName,setUpdateName]=React.useState("getId.product_name")
+    const [updateName,setUpdateName]=React.useState("")
     const [updateImg,setupdateImg]=React.useState("")
     const [updateType]=React.useState("Export")
-    const [updateDesc,setUpdateDesc]=React.useState("")
-    console.log(productName)
+    const [updateDesc,setUpdateDesc]=React.useState("gcjhjh")
+  
 
     const onImageChange =async(event) => {
         setloading(true)
@@ -102,6 +102,7 @@ export default function Export() {
         document.getElementById("myForm").reset(); 
        }
    }
+   console.log(getId)
    const deleteProd=async(rm)=>{
        const del=await deleteProduct(rm)
        if(del.status===200){
@@ -131,7 +132,7 @@ export default function Export() {
       onOpen={() => setOpen(true)}
       open={open}
     >
-      <Modal.Header>Select a Photo</Modal.Header>
+      <Modal.Header>Update product {getId.product_name}</Modal.Header>
       <Modal.Content >
       <Form error onSubmit={onUpdate} className="shadow-md sm:p-3" id="myForm">
         <Form.Group widths='equal'>
@@ -142,15 +143,14 @@ export default function Export() {
             placeholder=''
             value={updateType}
             disabled
-            className='text-gray-700'
+          
         />
-        <Form.Input
-            fluid
-            id='form-subcomponent-shorthand-input-last-name'
-            label='Product Name'
-            // value={getId.product_name}
-            onChange={(e)=>setUpdateName(e.target.value)}
-        />
+          <input 
+          type="text" 
+          id="fname" name="fname" 
+          value={updateName}
+          onChange={(e)=>setUpdateName(e.target.value)}
+          />
         </Form.Group>
         <Form.Group className='w-100'>
           <div className='w-1/2'>
@@ -173,7 +173,7 @@ export default function Export() {
             :""}
           </div>
           <div className='w-1/2'>
-            <Form.TextArea
+            <input
               id='form-subcomponent-shorthand-input-last-name'
               label='Product Description'
               value={getId.desc}
@@ -232,7 +232,6 @@ export default function Export() {
                   onChange={(event)=>{
                     onImageChange(event)
                   }}
-                  placeholder='First name'
                  className='input-w mx-auto' 
                  accept=".jpg, .jpeg, .png"
              />}
@@ -246,8 +245,8 @@ export default function Export() {
             <Form.TextArea
               id='form-subcomponent-shorthand-input-last-name'
               label='Product Description'
-              placeholder='Product description'
               value={productDesc}
+              placeholder="Enter products description"
               onChange={(e)=>setProdDesc(e.target.value)}
               className="input-w"
             />
@@ -305,6 +304,7 @@ export default function Export() {
                  <button onClick={()=>{
                    setOpen(true);
                    setGetId({_id, desc,product_name,imgUrl})
+                   setUpdateName(product_name)
                  }}>update</button>
               </Table.Cell>
               <Table.Cell>
