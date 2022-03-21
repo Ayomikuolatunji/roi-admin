@@ -19,7 +19,8 @@ export default function Export() {
     const [getId,setGetId]=React.useState("")
     const [updateName,setUpdateName]=React.useState("")
     const [updateImg,setupdateImg]=React.useState("")
-    const [updateType,setUpdateType]=React.useState("")
+    const [updateType]=React.useState("Export")
+    const [updateDesc,setUpdateDesc]=React.useState("")
 
     const onImageChange =async(event) => {
         setloading(true)
@@ -42,6 +43,7 @@ export default function Export() {
                     if(result.status===200) {
                         setloading(false)
                         setProdImg(result.url.split("?")[0])
+                        setupdateImg(result.url.split("?")[0])    
                     }
                    }
             }catch(error){
@@ -111,7 +113,7 @@ export default function Export() {
       if(!productName || !productDesc ){
         return console.log("please input all value")
       }
-      const res=await updateProd(getId,productName.toUpperCase(),productType.toUpperCase(), productDesc,productImg)
+      const res=await updateProd(getId,productName.toUpperCase(),productType.toUpperCase(), productDesc,updateImg)
       console.log(res)
       if(res.status===201){
        setProdDesc("")
@@ -141,7 +143,7 @@ export default function Export() {
             id='form-subcomponent-shorthand-input-first-name'
             label='Product type is automatically set'
             placeholder=''
-            value={productType}
+            value={updateType}
             disabled
             className='text-gray-700'
         />
@@ -150,8 +152,8 @@ export default function Export() {
             id='form-subcomponent-shorthand-input-last-name'
             label='Product Name'
             placeholder='Product name'
-            value={productName}
-            onChange={(e)=>setProdName(e.target.value)}
+            value={updateName}
+            onChange={(e)=>setUpdateName(e.target.value)}
         />
         </Form.Group>
         <Form.Group className='w-100'>
@@ -179,8 +181,8 @@ export default function Export() {
               id='form-subcomponent-shorthand-input-last-name'
               label='Product Description'
               placeholder='Product description'
-              value={productDesc}
-              onChange={(e)=>setProdDesc(e.target.value)}
+              value={updateDesc}
+              onChange={(e)=>setUpdateDesc(e.target.value)}
               className="w-11/12"
             />
           </div>
