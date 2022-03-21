@@ -55,7 +55,7 @@ export default function Export() {
       try {
         const res=await AllProd()
         // console.log(res.data.products)
-        setprods(res.data.products.reverse())
+        setprods(res.data.products)
         prodLoading(false);
       } catch (error) {
           setErr(error.message)
@@ -70,7 +70,7 @@ export default function Export() {
           try {
             const res=await AllProd()
             // console.log(res.data.products)
-            setprods(res.data.products.reverse())
+            setprods(res.data.products)
             prodLoading(false);
           } catch (error) {
               setErr(error.message)
@@ -110,24 +110,21 @@ export default function Export() {
    }
    const onUpdate=async(e)=>{
      e.preventDefault()
-      if(!productName || !productDesc ){
+      if(!updateName || !updateDesc || !updateImg){
         return console.log("please input all value")
       }
-      const res=await updateProd(getId,productName.toUpperCase(),productType.toUpperCase(), productDesc,updateImg)
+      const res=await updateProd(getId,updateName.toUpperCase(),updateType.toUpperCase(), updateDesc,updateImg)
       console.log(res)
-      if(res.status===201){
-       setProdDesc("")
-       setProdName("")
-       setloading(false)
-       setProdImg("")
+      if(res.status===200){
+          getProd()
        setSubLoading(false)
        document.getElementById("myForm").reset(); 
       }
-      console.log(getId)
+      console.log(getId,productName.toUpperCase(),productType.toUpperCase(), productDesc,updateImg)
       setOpen(false)
    }
   return (
-    <div className='p-3 mx-auto w-10/12'>
+    <div className='sm:p-3 py-2 mx-auto w-11/12'>
       {/* modal */}
       <Modal
       onClose={() => setOpen(false)}
@@ -207,7 +204,7 @@ export default function Export() {
 
 
         {/* post products */}
-    <Form error onSubmit={onSubmit} className="shadow-md sm:p-3" id="myForm">
+    <Form error onSubmit={onSubmit} className="shadow-md sm:p-3 w-full" id="myForm">
         <Form.Group widths='equal'>
         <Form.Input
             fluid
@@ -227,8 +224,8 @@ export default function Export() {
             onChange={(e)=>setProdName(e.target.value)}
         />
         </Form.Group>
-        <Form.Group className='w-100'>
-          <div className='w-1/2'>
+        <div className='w-full mx-auto flex'>
+          <div className='sm:w-1/2 mx-auto w-full'>
             {<Form.Input
               type='file'
                   fluid
@@ -238,7 +235,7 @@ export default function Export() {
                     onImageChange(event)
                   }}
                   placeholder='First name'
-                 className='w-11/12' 
+                 className='input-w mx-auto' 
                  accept=".jpg, .jpeg, .png"
              />}
               {productImg  ? <h1 className='text-green-400 font-extrabold text-xl'>Uploaded SuccessFully</h1> :""}
@@ -247,17 +244,17 @@ export default function Export() {
                   </Dimmer>
             :""}
           </div>
-          <div className='w-1/2'>
+          <div className='sm:w-1/2 w-full'>
             <Form.TextArea
               id='form-subcomponent-shorthand-input-last-name'
               label='Product Description'
               placeholder='Product description'
               value={productDesc}
               onChange={(e)=>setProdDesc(e.target.value)}
-              className="w-11/12"
+              className="input-w"
             />
           </div>
-        </Form.Group>
+        </div>
        {/* {err ? <Message
         error
         content='You can only sign up for an account once with a given e-mail address.'
@@ -287,9 +284,9 @@ export default function Export() {
     </Table.Header>
 
     <Table.Body>
-        {(err && "") || (prods.length>0 ? prods?.map((prod,index)=>{
+        {(err && "") || (prods.length>0 ? prods.map((prod,index)=>{
             const {_id,imgUrl,product_type,product_name, desc}=prod
-            if(product_type==="Export"){
+            if(product_type.toLowerCase()==="EXPORT".toLowerCase()){
               return <Table.Row key={index}>
               <Table.Cell>
                 <Header as='h2' textAlign='center'>
