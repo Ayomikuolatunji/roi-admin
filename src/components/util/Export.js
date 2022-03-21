@@ -25,6 +25,7 @@ export default function Export() {
   
 
     const onImageChange =async(event) => {
+      setInputErr("")
         setloading(true)
         try{
             if (event.target.files && event.target.files[0]) {
@@ -104,7 +105,6 @@ export default function Export() {
         document.getElementById("myForm").reset(); 
        }
    }
-   console.log(getId)
    const deleteProd=async(rm)=>{
        const del=await deleteProduct(rm)
        if(del.status===200){
@@ -134,7 +134,7 @@ export default function Export() {
       onOpen={() => setOpen(true)}
       open={open}
     >
-      <Modal.Header>Update product {getId.product_name}</Modal.Header>
+      <Modal.Header>Update product {updateName}</Modal.Header>
       <Modal.Content >
       <Form error onSubmit={onUpdate} className="shadow-md sm:p-3" id="myForm">
         <Form.Group widths='equal'>
@@ -255,7 +255,7 @@ export default function Export() {
             />
           </div>
         </div>
-       {inputErr && <Message color='red'>{inputErr}/Message>}
+       {inputErr && <Message color='red'>{inputErr}</Message>}
         <Button type="submit">{subLoading?"Request sent...": "Submit"}</Button>
     </Form>
         {/* lists prodducts */}
@@ -281,7 +281,9 @@ export default function Export() {
     </Table.Header>
 
     <Table.Body>
-        {(err && "") || (prods.length>0 ? prods.map((prod,index)=>{
+        {(!err && <Table.Row>
+        <Table.Cell><h1 className='text-red-500 text-xl'>Cant load product lists due to bad internet connection</h1></Table.Cell>
+      </Table.Row>) || (prods.length>0 ? prods.map((prod,index)=>{
             const {_id,imgUrl,product_type,product_name, desc}=prod
             if(product_type.toLowerCase()==="EXPORT".toLowerCase()){
               return <Table.Row key={index}>
