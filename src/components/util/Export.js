@@ -106,6 +106,7 @@ export default function Export() {
    const onUpdate=(e)=>{
      e.preventDefault()
       console.log(getId)
+      setOpen(false)
    }
   return (
     <div className='p-3 mx-auto w-10/12'>
@@ -168,27 +169,20 @@ export default function Export() {
             />
           </div>
         </Form.Group>
-       {/* {err ? <Message
-        error
-        content='You can only sign up for an account once with a given e-mail address.'
-        /> : ""} */}
-        <Button type="submit">{subLoading?"Request sent...": "Submit"}</Button>
+        <Button
+          content="Update product"
+          labelPosition='right'
+          icon='checkmark'
+          type="submit"
+          positive
+        />
     </Form>
       </Modal.Content>
       <Modal.Actions>
         <Button color='black' onClick={() => setOpen(false)}>
           Cancel
         </Button>
-        <Button
-          content="Update product"
-          labelPosition='right'
-          icon='checkmark'
-          onClick={() => {
-            setOpen(false)
-          }}
-          type="submit"
-          positive
-        />
+       
       </Modal.Actions>
     </Modal>
 
