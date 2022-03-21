@@ -97,6 +97,9 @@ export default function Export() {
    }
    const deleteProd=async(rm)=>{
        const del=await deleteProduct(rm)
+       if(del.status===200){
+         getProd()
+       }
        console.log(del)
    }
   return (
@@ -182,7 +185,8 @@ export default function Export() {
 
     <Table.Body>
         {(err && "") || (prods?.map((prod,index)=>{
-            const {id,imgUrl,product_type,product_name, desc}=prod
+            const {_id,imgUrl,product_type,product_name, desc}=prod
+            console.log(_id)
             if(product_type==="Export"){
               return <Table.Row key={index}>
               <Table.Cell>
@@ -201,7 +205,7 @@ export default function Export() {
                 {desc}
               </Table.Cell>
               <Table.Cell>
-                 <button onClick={()=>{deleteProd(id)}}>Delete</button>
+                 <button onClick={()=>{deleteProd(_id)}}>Delete</button>
               </Table.Cell>
             </Table.Row>
             }
