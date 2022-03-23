@@ -1,6 +1,6 @@
 import React from 'react';
 import { AllProd,postProds,deleteProduct,updateProd} from '../../hooks/api/reqquest';
-import { Button, Form,Dimmer,Loader,Segment,Image,Message,Table, Header
+import { Button, Form,Dimmer,Loader,Segment,Image,Message,Table
 ,Modal,Icon} from 'semantic-ui-react';
 import axios from "axios";
 
@@ -301,9 +301,7 @@ export default function Local() {
             if(product_type.toLowerCase()==="MINERAL".toLowerCase()){
               return <Table.Row key={index}>
               <Table.Cell>
-                <Header as='h2' textAlign='center'>
                   {index+1}
-                </Header>
               </Table.Cell>
               <Table.Cell singleLine>{product_name.toUpperCase()}</Table.Cell>
               <Table.Cell>
