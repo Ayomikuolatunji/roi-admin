@@ -181,7 +181,7 @@ export default function Local() {
                  accept=".jpg, .jpeg, .png"
              />}
              <h1>{updateImg}</h1>
-              {productImg  ? <h1 className='text-green-400 font-extrabold text-xl'>Uploaded SuccessFully</h1> :""}
+              {productImg  ? <h1 className='text-green-400 font-extrabold text-xl'>{updateImg?"":"Uploaded SuccessFully"}</h1> :""}
                   {loading ? <Dimmer active inverted>
                     <Loader size='mini'>Uploading img please wait...</Loader>
                   </Dimmer>

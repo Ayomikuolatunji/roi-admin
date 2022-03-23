@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { AllProd} from '../../hooks/api/reqquest';
 
 export default function Main() {
   return (
