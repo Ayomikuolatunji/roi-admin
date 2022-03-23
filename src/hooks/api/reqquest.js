@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const fetchProd="http://localhost:5000/api/v2/products";
-const postProd="http://localhost:5000/api/v2/products";
+const fetchProd="https://roi-investment.herokuapp.com/api/v2/products";
+const postProd="https://roi-investment.herokuapp.com/api/v2/products";
 
 
 export const AllProd=async()=>{
