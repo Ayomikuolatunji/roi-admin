@@ -236,6 +236,7 @@ export default function Local() {
             placeholder='Product name'
             value={productName}
             onChange={(e)=>setProdName(e.target.value)}
+            className="w-full"
         />
         </Form.Group>
         <div className='w-full mx-auto sm:flex'>
