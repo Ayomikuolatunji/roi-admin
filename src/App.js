@@ -1,15 +1,15 @@
 import React from 'react'
 import Header from './components/Header'
-import { Switch, Route } from "react-router-dom";
+import { Routes ,Route } from 'react-router-dom';
 import Sidebar from './components/layout/Sidebar';
 import Main from './components/layout/Main';
 import Estate from './components/util/Estate';
 import Mineral from './components/util/Mineral';
 import Local from "./components/util/Local"
-import "./app.css"
 import Export from './components/util/Export';
 import ImgSlider from './components/util/ImgSlider';
 import Other from './components/util/Other';
+import "./app.css"
 
 
 export default function app() {
@@ -21,15 +21,15 @@ export default function app() {
                 <Sidebar/>
              </div>
              <div className='main'>
-                  <Switch>
-                    <Route path="/export-products" component={Export}/>
-                    <Route path="/mineral-resource" component={Mineral}/>
-                    <Route path="/real-estate" component={Estate}/>
-                    <Route path="/local-products" component={Local}/>
-                    <Route path="/img-slider" component={ImgSlider}/>
-                    <Route path="/other-product" component={Other}/>
-                    <Route path="/" component={Main}/>
-                  </Switch>
+                   <Routes>
+                        <Route path="/export-products" element={<Export/>}/>
+                        <Route path="/mineral-resource" element={<Mineral/>}/>
+                        <Route path="/real-estate" element={<Estate/>}/>
+                        <Route path="/local-products" element={<Local/>}/>
+                        <Route path="/img-slider" element={<ImgSlider/>}/>
+                        <Route path="/other-product" element={<Other/>}/>
+                        <Route path="/" element={<Main/>}/>
+                   </Routes>               
              </div>
         </div>
     </>

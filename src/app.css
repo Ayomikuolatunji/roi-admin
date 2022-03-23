@@ -24,7 +24,7 @@
 }
 .main{
     width: 75%;
-    z-index: -1;
+ 
 }
 
 @media (max-width:640px){
@@ -55,3 +55,4 @@
 .input-w{
     width: 97%;
 }
+

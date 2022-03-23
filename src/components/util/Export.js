@@ -269,7 +269,7 @@ export default function Local() {
           </div>
         </div>
        {inputErr && <Message color='red'>{inputErr}</Message>}
-        <Button type="submit">{subLoading?"Request sent...": "Submit"}</Button>
+        <Button type="submit" positive>{subLoading?"Request sent...": "Submit"}</Button>
     </Form>
         {/* lists prodducts */}
    {prodLoading ?  <Segment>

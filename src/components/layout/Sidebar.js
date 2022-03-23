@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import {FaHome} from "react-icons/all"
+
 
 export default function Sidebar() {
 
     const Navdata=[
-        {link:"Home", path:"/", icon:<FaHome/>},
+        {link:"Home", path:"/", },
         {link:"Export", path:"/export-products"},
         {link:"Local Products", path:"/local-products"},
         {link:"Mineral Resources", path:"/mineral-resource"},

@@ -8,7 +8,7 @@ import axios from "axios";
 export default function Local() {
     const [err,setErr]=React.useState(false);
     const [prods,setprods]=React.useState([]);
-    const [productType]=React.useState("Local")
+    const [productType]=React.useState("LOCAL")
     const [productName,setProdName]=React.useState('')
     const [productDesc,setProdDesc]=React.useState('')
     const [productImg,setProdImg]=React.useState('')
@@ -19,7 +19,7 @@ export default function Local() {
     const [getId,setGetId]=React.useState("")
     const [updateName,setUpdateName]=React.useState("")
     const [updateImg,setupdateImg]=React.useState("")
-    const [updateType]=React.useState("Local")
+    const [updateType]=React.useState("LOCAL")
     const [updateDesc,setUpdateDesc]=React.useState("")
     const [inputErr,setInputErr]=React.useState("")
   
@@ -126,6 +126,19 @@ export default function Local() {
       }
       setOpen(false)
    }
+   const newProd=(prods)=>{
+       const arr=[]
+       prods.map(pro=>{
+         if(pro.product_type==="LOCAL"){
+             return arr.push(pro)
+         }else{
+           return []
+         }
+       })
+
+       return arr;
+   }
+
   return (
     <div className='sm:p-3 py-2 mx-auto w-11/12'>
       {/* modal */}
@@ -256,7 +269,7 @@ export default function Local() {
           </div>
         </div>
        {inputErr && <Message color='red'>{inputErr}</Message>}
-        <Button type="submit">{subLoading?"Request sent...": "Submit"}</Button>
+        <Button type="submit" positive>{subLoading?"Request sent...": "Submit"}</Button>
     </Form>
         {/* lists prodducts */}
    {prodLoading ?  <Segment>
@@ -283,9 +296,9 @@ export default function Local() {
     <Table.Body>
         {(!err && <Table.Row>
         <Table.Cell><h1 className='text-red-500 text-xl'>Cant load product lists due to bad internet connection</h1></Table.Cell>
-      </Table.Row>) || (prods.length>0 ? prods.map((prod,index)=>{
+      </Table.Row>) || (prods.length>0 ? newProd(prods).map((prod,index)=>{
             const {_id,imgUrl,product_type,product_name, desc}=prod
-            if(product_type.toLowerCase()==="Local".toLowerCase()){
+            if(product_type.toLowerCase()==="LOCAL".toLowerCase()){
               return <Table.Row key={index}>
               <Table.Cell>
                 <Header as='h2' textAlign='center'>
