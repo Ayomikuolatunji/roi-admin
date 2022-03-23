@@ -126,6 +126,19 @@ export default function Local() {
       }
       setOpen(false)
    }
+   const newProd=(prods)=>{
+       const arr=[]
+       prods.map(pro=>{
+         if(pro.product_type==="EXPORT"){
+             return arr.push(pro)
+         }else{
+           return []
+         }
+       })
+
+       return arr;
+   }
+
   return (
     <div className='sm:p-3 py-2 mx-auto w-11/12'>
       {/* modal */}
@@ -283,7 +296,7 @@ export default function Local() {
     <Table.Body>
         {(!err && <Table.Row>
         <Table.Cell><h1 className='text-red-500 text-xl'>Cant load product lists due to bad internet connection</h1></Table.Cell>
-      </Table.Row>) || (prods.length>0 ? prods.map((prod,index)=>{
+      </Table.Row>) || (prods.length>0 ? newProd(prods).map((prod,index)=>{
             const {_id,imgUrl,product_type,product_name, desc}=prod
             if(product_type.toLowerCase()==="Export".toLowerCase()){
               return <Table.Row key={index}>
